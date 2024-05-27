@@ -1,0 +1,143 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    vector<int> arr = {2,3,5};
+    int n = arr.size();
+    
+    for(int mask=0;mask<(1<<n);mask++){ // 2*n
+        cout<<mask<<endl;
+        for(int submask = mask;;submask = (submask-1)&mask){
+            for(int i=0;i<n;i++){
+                if((submask>>i)&1){
+                    cout<<arr[i]<<", ";
+                }
+            }
+            cout<<endl;
+            
+            if(submask==0)break;
+        }
+        cout<<endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    vector<int> arr = {2,3,5};
+    int n = arr.size();
+    
+    for(int mask=0;mask<(1<<n);mask++){ // 2*n
+        cout<<bitset<3>(mask).to_string()<<endl;
+        for(int submask = mask;;submask = (submask-1)&mask){
+            cout<<bitset<3>(submask).to_string()<<": ";
+            for(int i=0;i<n;i++){
+                if((submask>>i)&1){
+                    cout<<arr[i]<<", ";
+                }
+            }
+            cout<<endl;
+            
+            if(submask==0)break;
+        }
+        cout<<endl;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int f(int i,int x){
+    int nums = (x+1);
+    int boxsize = (1<<(i+1));
+    
+    int fullboxes = nums/boxsize;
+    int ans = fullboxes * (1<<i);
+    
+    int extra = nums%boxsize;
+    ans += max(extra-(1<<i),0);
+    return ans;
+}
+
+int main(){
+    int l,r;
+    cin>>l>>r;
+    
+    int ans = 0;
+    for(int i=0;i<30;i++){
+        int cnt1 = f(i,r) - f(i,l-1);
+        if(cnt1==(r-l+1)){
+            ans |= (1<<i);
+        }
+    }
+    cout<<ans<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main(){
+    unsigned int x;
+    cin>>x;
+    x|= (1<<30);
+    cout<<bitset<32>(x)<<endl;
+    // reverse
+    
+    x = ((x&0xFFFF0000) >> 16) | ((x&0x0000FFFF)<<16);
+    x = ((x&0xFF00FF00) >> 8) | ((x&0x00FF00FF)<<8);
+    x = ((x&0xF0F0F0F0) >> 4) | ((x&0x0F0F0F0F)<<4);
+    x = ((x&0xCCCCCCCC) >> 2) | ((x&0x33333333)<<2);
+    x = ((x&0xAAAAAAAA) >> 1 )| ((x&0x55555555)<<1);
+    
+    
+    
+    // after reverse
+    cout<<bitset<32>(x)<<endl;
+    
+}
+
+
+
+
